@@ -12,32 +12,32 @@
     <ol>
       <li>Where should you use constants, and where should you use variables? Can they all be constants?</li>
       <p>
-				[Replace this with you answer]
+				You should use constants while declaring values that are changeable throughout the whole code, and variables for declaring values that are not defined yet or will change later. Although constants improve readability, they cannot be used for all values, because variables are more flexible and able to get updated.
 			</p>
       <li>How do parentheses affect the arithmetic outcome of an expression?</li>
       <p>
-				[Replace this with you answer]
+				Parentheses, like in traditional mathematics, decide the order of operation made in an expression. In general, operation in parentheses are executed first (then multiplication/division and addition/subtraction).)
 			</p>
       <li>How do we limit floating-point numbers to a given number of decimals?</li>
       <p>
-				[Replace this with you answer]
+				We can do that by using the toFixed(n) method, where n is the number of decimals we want to have in the result.
 			</p>
       <li>How can we compare two floating-point values to see if they are equal (is 12.199999 the same as 12.2)?</li>
       <p>
-				[Replace this with you answer]
+				Normally we should use the equality operator (== or ===) to compare two values. Nevertheless, the difference between two floating-point number is so small that we can first round them to the same number of decimals (for example by using toFixed(n)) and then compare them.
 			</p>
       <li>What do comparison operators return, and how can we check if they are FALSE or TRUE?</li>
       <p>
-				[Replace this with you answer]
+				Comparisons operators return a boolean value - TRUE or FALSE. We can check them directly in an if statement that also uses the boolean value.
 			</p>
       <li>How does the Math.random() function work, and what can it be used for?</li>
       <p>
-				[Replace this with you answer]
+				This function executes a potentially random number. It can be used as an apparent impression of randomness for example in games (dice rolls, card shuffling/draws etc). 
 			</p>
       <li>What is modulus (%), and when do we need this operator in mathematical operations?</li>
       <p>
-				[Replace this with you answer]
-			</p>
+				The modulus is an arithmetic operator that returns the remainder of a division. It is particularly useful in determining if a number is even or odd - if it is even, it is going to return 0 when divided by 2, otherwise it returns 1.
+			</p
     </ol>
 		<script type="module" src="./task_2-2.mjs" defer></script>
   </body>
