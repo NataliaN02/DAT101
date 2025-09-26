@@ -74,7 +74,7 @@ printOut(newLine);
 
 printOut("--- Part 9 ----------------------------------------------------------------------------------------------");
 /* Put your code below here!*/
-let r = Math.floor(Math.random() * 360) + 1
+let r = Math.floor(Math.random() * 360) + 1;
 printOut("A random number between 1 and 360:", r);
 printOut(newLine);
 
