@@ -13,7 +13,7 @@ printOut("--- Part 2 -----------------------------------------------------------
 /* Put your code below here!*/
 let metersToInches = 25 * 1000 / 25.4;
 let centimetersToInches = 34 * 10 / 25.4;
-printOut(`25 meteres is ${metersToInches.toFixed(2)} inches.`);
+printOut(`25 meters is ${metersToInches.toFixed(2)} inches.`);
 printOut(`34 centimeters is ${centimetersToInches.toFixed(2)} inches.`);
 printOut(newLine);
 
