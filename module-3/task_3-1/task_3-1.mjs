@@ -94,5 +94,4 @@ if (monthName === "April") {
 } else {
     printOut("The gallery is open.");
 }
-
 printOut(newLine);
