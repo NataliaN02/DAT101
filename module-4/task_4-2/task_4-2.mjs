@@ -146,6 +146,7 @@ for (let item of freqArray) {
 }
 printOut(newLine);
 
+/*Task 10*/
 printOut("--- Part 10 ---------------------------------------------------------------------------------------------");
 /* Put your code below here!*/
 const table = [];

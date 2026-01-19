@@ -171,7 +171,7 @@ do {
         dice.push(roll);
         counts[roll]++;
     }
-    var pairs = 0;
+    let pairs = 0;
     for (let i = 1; i <= 6; i++) {
         if (counts[i] === 2) pairs++;
     }
@@ -191,8 +191,8 @@ do {
         dice.push(roll);
         counts[roll]++;
     }
-    var hasTwo = false;
-    var hasFour = false;
+    let hasTwo = false;
+    let hasFour = false;
     for (let i = 1; i <= 6; i++) {
         if (counts[i] === 2) hasTwo = true;
         if (counts[i] === 4) hasFour = true;
