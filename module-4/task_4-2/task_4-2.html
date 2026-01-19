@@ -10,8 +10,30 @@
       <span id="txtOut" style="white-space: nowrap"></span>
     </div>
     <ol>
-      <li>[Write the question here, and copy this for more questions]</li>
-      <p>[Write your answer here, and copy this for more answers]</p>
+      <li>What is an array?</li>
+      <p>An array is a list-like structure in programming that can store multiple values in a single variable, accessible by an index.</p>
+      <li>What does it mean to "hardcode" when we talk about programming?</li>
+      <p>Hardcoding means writing values directly into the code instead of generating them dynamically or getting them from input or configuration.</p>
+      <li>Explain in plain text what happens in task 3, and how we can traverse (iterate) the array when we
+(humans) don't "know" how long the array is.</li>
+      <p>In task 3, we take a string, split it into words, and store them in an array. We traverse the array using a loop (like for or forEach) to print each word and its index. This works even if we don’t know the length beforehand because arrays have a .length property that tells us how many elements exist</p>
+      <li>Why is it beneficial to store instances of a class in arrays, as in task 4?</li>
+      <p>Storing class instances in arrays is beneficial because it allows easy management of multiple objects. We can loop through them, remove elements, or perform operations on all instances without writing repetitive code.</p>
+      <li>Try your best to explain the EWeekDays object from task 7. How do we use the "value" attribute, for
+example? In what way do "WeekDay", "Workdays", and "Weekends" differ from each other? If we
+wanted to create a new element "WorkoutDays", which would contain "Monday", "Wednesday", and
+"Thursday", how would it ideally look?</li>
+      <p>(I don't want to take part in the competition). "EWeekDays" is a static object holding categories of days, e.g., "WeekDay", "Workdays", "Weekends". The value attribute gives the array of days for each key. "WeekDay" might include all 7 days, "Workdays" only Monday–Friday, "Weekends" Saturday–Sunday. To add "WorkoutDays" for Monday, Wednesday, Thursday:
+EWeekDays.WorkoutDays = ["Monday", "Wednesday", "Thursday"];</p>
+      <li>In task 8, we will use a "callback" routine when sorting. Explain how such a "callback" routine works.</li>
+      <p>A callback in .sort(...) is a function passed into another function to determine sorting order. It receives two elements and returns a number: negative if the first should come before the second, positive if after, and zero if equal.</p>
+      <li>What happens in the sorting routines you have created? Try to explain how the array can figure out
+if an element should come before or after another. The best way to answer this is to actually print
+both parameters each time the sorting routine runs.</li>
+      <p>In sorting, the callback compares two elements at a time. The array uses the returned value to decide which element comes first. By printing the parameters in the callback, you can see each comparison and the decision made.</p>
+      <li>In task 10, we will create an array with rows and columns. Explain what the first element of the array
+contains.</li>
+      <p>The first element of the array contains the first row, which itself is an array containing all the columns of that row. For example, array[0][0] is the first cell in the first row, array[0][1] is the second cell in the first row, etc.</p>
     </ol>
     <script type="module" src="./task_4-2.mjs" defer></script>
   </body>

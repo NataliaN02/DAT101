@@ -10,8 +10,14 @@
       <span id="txtOut" style="white-space: nowrap"></span>
     </div>
     <ol>
-      <li>[Write the question here, and copy this for more questions]</li>
-      <p>[Write your answer here, and copy this for more answers]</p>
+      <li>1. In part 1, is it possible to solve the problem using a single "for" loop?</li>
+      <p>It's not possible to generate both lines with a single "for" loop if each line must be printed separately. One need two loops or one loop with additional logic to handle both sequences.</p>
+      <li>2. In part 2, can we create what is known as an "infinite" loop within the condition of the "while" loop? Describe what would or would not be necessary to achieve this. Provide a thorough explanation of your answer.</li>
+      <p>A "while" loop can run indefinitely if the condition never becomes false, which is called an infinite loop. In the guessing number program, Math.random() generates a new random number in each loop iteration. If the guessed number is never correct, the while loop keeps running, drawing new numbers again and again. Because Math.random() is pseudorandom, there is no guarantee the correct number will be picked quickly, so the loop could run for a long time. During this, the program is busy with the loop and usually cannot do other tasks at the same time. Nothing extra is needed to make the loop infinite. In order to avoid creating an infinite loop, one usually add for example a maximum number of guesses, to prevent the program from running forever.</p>
+      <li>3. Discuss briefly how quickly or slowly a computer might be able to compute this, considering the number of guesses and the time it takes. How does the program behave while it is guessing? Can the program perform other tasks concurrently?</li>
+      <p>With a range of 1 to one million, the program might take a significant number of guesses and milliseconds. While the program is guessing, it repeatedly generates random numbers and checks if they match the target number. The program stays inside the while loop or similar loop until the correct number is found. During this process, the program is fully occupied with guessing, so it usually cannot do other tasks at the same time.</p>
+      <li>4. Explain the relationship between rows and columns in nested "for" loops. Can we, for instance, change the order, considering rows to be innermost or columns to be innermost, or does this not matter?</li>
+      <p>In nested loops, the outer loop represents rows and the inner loop columns. One can swap the order, but it will change the output pattern; the logical relationship matters for correct positioning of elements.</p>
     </ol>
     <script type="module" src="./task_3-2.mjs" defer></script>
   </body>
