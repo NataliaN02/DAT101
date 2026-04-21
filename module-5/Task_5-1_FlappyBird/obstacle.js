@@ -30,9 +30,11 @@ export class TObstacle{
     }
 
     this.#spDown = new TSprite(aSpcvs, aSPI, x, topWithGap);
-    this.#spDown.index = 2;
     this.#spUp = new TSprite(aSpcvs, aSPI, x, top);
-    this.#spUp.index = 3;
+
+    this.setDayMode(true);
+
+    this.isDay = true;
   }
 
   // Properties
@@ -49,6 +51,17 @@ export class TObstacle{
     this.#spUp.draw();
   }
 
+  setDayMode(aIsDay){
+    this.isDay = aIsDay;
+
+    if (this.isDay) {
+      this.#spDown.index = 2;
+      this.#spUp.index = 3;
+    } else {
+      this.#spDown.index = 0;
+      this.#spUp.index = 1;
+    }
+  }
   
   animate(){
     this.#spDown.x--;
