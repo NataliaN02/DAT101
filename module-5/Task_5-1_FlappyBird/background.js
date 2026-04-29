@@ -1,6 +1,5 @@
 "use strict";
 import { TSprite } from "libSprite";
-import { isDayMode } from "./FlappyBird.mjs";
 
 export class TBackground{
   #spriteBackground;
@@ -13,10 +12,8 @@ export class TBackground{
   }
 
   drawBackground(){
-    this.#spriteBackground.index = isDayMode ? 0 : 1;
     this.#spriteBackground.draw();
   }
-  
 
   drawGround(){
     this.#spriteGround.draw();
