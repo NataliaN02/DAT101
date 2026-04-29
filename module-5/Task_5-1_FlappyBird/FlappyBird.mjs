@@ -34,14 +34,15 @@ const SpriteInfoList = {
 export const EGameStatus = { idle: 0, countDown: 1, gaming: 2, heroIsDead: 3, gameOver: 4, state: 0 };
 const background = new TBackground(spcvs, SpriteInfoList);
 export const hero = new THero(spcvs, SpriteInfoList.hero1);
-const obstacles = [];
-const baits = [];
+export const obstacles = [];
+export const baits = [];
 export const menu = new TMenu(spcvs, SpriteInfoList);
 let obstaclePassed = false;
+export let soundMuted = false;
+export let isDayMode = true;
 
 //--------------- Functions ----------------------------------------------//
 export function startGame() {
-  EGameStatus.state = EGameStatus.gaming;
   setTimeout(spawnObstacle, 1000);
   setTimeout(spawnBait, 1000);
 }
@@ -58,6 +59,7 @@ function spawnBait() {
 function spawnObstacle() {
   if (EGameStatus.state === EGameStatus.gaming) {
     const obstacle = new TObstacle(spcvs, SpriteInfoList.obstacle);
+    obstacle.setDayMode(isDayMode);
     obstacles.push(obstacle);
     const nextTime = Math.ceil(Math.random() * 3) + 1;
     setTimeout(spawnObstacle, nextTime * 1000);
@@ -143,15 +145,20 @@ function onKeyDown(aEvent) {
 } // end of onKeyDown
 
 function setSoundOnOff() {
-  // Mute or unmute the game sound based on checkbox
-} // end of setSoundOnOff
+  soundMuted = chkMuteSound.checked;
+  console.log("Muted:", soundMuted);
+
+  menu.setSoundMute(soundMuted);
+}
 
 function setDayNight(aEvent) {
-  // Set day or night mode based on radio buttons
-  // Day mode is when value is 1, night mode is 0, you can use this as a boolean, 1=true, 0=false
-  // e.g., isDayMode = (aEvent.target.value == 1);
-  console.log(`Day/Night mode changed: ${aEvent.target.value}`);
-} // end of setDayNight
+  isDayMode = (aEvent.target.value == 1);
+  console.log("Day mode:", isDayMode);
+
+  obstacles.forEach(obstacle => {
+    obstacle.setDayMode(isDayMode);
+  });
+}
 
 //--------------- Main Code ----------------------------------------------//
 chkMuteSound.addEventListener("change", setSoundOnOff);
