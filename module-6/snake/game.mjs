@@ -55,7 +55,8 @@ export function baitIsEaten() {
 
   console.log("Bait eaten!");
   /* Logic to increase the snake size and score when bait is eaten */
-
+  GameProps.snake.grow();
+  GameProps.bait.update();
   increaseGameSpeed(); // Increase game speed
 }
 

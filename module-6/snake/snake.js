@@ -230,6 +230,7 @@ export class TSnake {
   #head = null;
   #body = null;
   #tail = null;
+  #newBodyPart = null;
   constructor(aSpriteCanvas, aBoardCell) {
     this.#head = new TSnakeHead(aSpriteCanvas, aBoardCell);
     let col = aBoardCell.col - 1;
@@ -255,7 +256,12 @@ export class TSnake {
       for (let i = 0; i < this.#body.length; i++) {
         this.#body[i].update();
       }
-      this.#tail.update();  
+      if(this.#newBodyPart){
+        this.#body.push(this.#newBodyPart);
+        this.#newBodyPart = null;
+      }else{
+        this.#tail.update();
+      } 
     }else if(!this.#isDead){
       this.#isDead = true;
       return false; // Collision detected, do not continue
@@ -266,4 +272,8 @@ export class TSnake {
   setDirection(aDirection) {
     this.#head.setDirection(aDirection);
   } // setDirection
+
+  grow() {
+  this.#newBodyPart = this.#body[this.#body.length - 1].clone();
+  }
 }
