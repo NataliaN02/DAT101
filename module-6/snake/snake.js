@@ -190,6 +190,16 @@ class TSnakeTail extends TSnakePart {
   }
 
   update(){
+
+    // save the tail´s current position
+    const startTailRow = this.boardCell.row;
+    const startTailCol = this.boardCell.col;
+
+    // clear the old tail cell
+    GameProps.gameBoard.getCell(startTailRow, startTailCol).infoType =
+      EBoardCellInfoType.Empty;
+
+    // move the tail, after clearing the old tail cell
     switch (this.direction) {
       case EDirection.Up:
         this.boardCell.row--;
@@ -204,8 +214,9 @@ class TSnakeTail extends TSnakePart {
         this.boardCell.row++;
         break;
     }
+
+    //get info about the new tail cell 
     const boardCellInfo = GameProps.gameBoard.getCell(this.boardCell.row, this.boardCell.col);
-    boardCellInfo.infoType = EBoardCellInfoType.Empty; // Clear the cell, when the tail moves
     this.direction = boardCellInfo.direction;
     this.index = this.direction;
     super.update();
