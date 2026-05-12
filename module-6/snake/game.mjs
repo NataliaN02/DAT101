@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------------------------------
 //----------- Import modules, mjs files  ---------------------------------------------------
 //-----------------------------------------------------------------------------------------
-import { TSpriteCanvas } from "libSprite";
+import { TSpriteCanvas, TSprite } from "libSprite";
 import { TGameBoard, GameBoardSize, TBoardCell } from "./gameBoard.js";
 import { TSnake, EDirection } from "./snake.js";
 import { TBait } from "./bait.js";
@@ -144,10 +144,24 @@ function increaseGameSpeed() {
 }
 
 function drawScore() {
-  const ctx = cvs.getContext("2d");
-  ctx.font = "32px Arial";
-  ctx.fillStyle = "white";
-  ctx.fillText(`Score: ${GameProps.score}`, 20, 40);
+  const scoreText = GameProps.score.toString();
+  let x = 20;
+  const y = 20;
+  for (let i = 0; i < scoreText.length; i++) {
+    const digit = parseInt(scoreText[i]);
+    // Create temporary sprite
+    const numberSprite = new TSprite(
+      spcvs,
+      SheetData.Number,
+      x,
+      y
+    );
+    // Select correct digit sprite
+    numberSprite.index = digit;
+    // Draw sprite
+    numberSprite.draw();
+    x += 60;
+  }
 }
 
 //-----------------------------------------------------------------------------------------
