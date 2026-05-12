@@ -73,7 +73,7 @@ class TSnakeHead extends TSnakePart {
     }
     // Update the position of the snake element (subclass)
     super.update();
-    //Check if the snake head is on a bait cell
+    // Check if the snake head is on a bait cell
     const boardCellInfo = GameProps.gameBoard.getCell(this.boardCell.row, this.boardCell.col);
     if(boardCellInfo.infoType === EBoardCellInfoType.Bait) {
       baitIsEaten();
@@ -191,15 +191,15 @@ class TSnakeTail extends TSnakePart {
 
   update(){
 
-    // save the tail´s current position
+    // Save the tail´s current position
     const startTailRow = this.boardCell.row;
     const startTailCol = this.boardCell.col;
 
-    // clear the old tail cell
+    // Clear the old tail cell
     GameProps.gameBoard.getCell(startTailRow, startTailCol).infoType =
       EBoardCellInfoType.Empty;
 
-    // move the tail, after clearing the old tail cell
+    // Move the tail, after clearing the old tail cell
     switch (this.direction) {
       case EDirection.Up:
         this.boardCell.row--;
@@ -215,7 +215,7 @@ class TSnakeTail extends TSnakePart {
         break;
     }
 
-    //get info about the new tail cell 
+    // Get info about the new tail cell 
     const boardCellInfo = GameProps.gameBoard.getCell(this.boardCell.row, this.boardCell.col);
     this.direction = boardCellInfo.direction;
     this.index = this.direction;

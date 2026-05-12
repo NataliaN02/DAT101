@@ -37,7 +37,9 @@ export const GameProps = {
   gameBoard: null,
   gameStatus: EGameStatus.Idle,
   snake: null,
-  bait: null
+  bait: null,
+  score: 0,
+  baitSpawnTime: 0
 };
 
 //------------------------------------------------------------------------------------------
@@ -49,12 +51,30 @@ export function newGame() {
   GameProps.snake = new TSnake(spcvs, new TBoardCell(5, 5)); // Initialize snake with a starting position
   GameProps.bait = new TBait(spcvs); // Initialize bait with a starting position
   gameSpeed = 4; // Reset game speed
+  GameProps.score = 0;
 }
 
 export function baitIsEaten() {
 
   console.log("Bait eaten!");
   /* Logic to increase the snake size and score when bait is eaten */
+  // Time passed since bait spawned
+  const elapsedTime = Date.now() - GameProps.baitSpawnTime;
+  // Convert ms to seconds
+  const seconds = elapsedTime / 1000;
+  let points = 1; // minimal score
+  if (seconds <= 3) {
+    points = 5;
+  } else if (seconds <= 4) {
+    points = 4;
+  } else if (seconds <= 5) {
+    points = 3;
+  } else if (seconds <= 6) {
+    points = 2;
+  }
+  GameProps.score += points;
+  console.log(`+${points} points`);
+  console.log(`Total score: ${GameProps.score}`);
   GameProps.snake.grow();
   GameProps.bait.update();
   increaseGameSpeed(); // Increase game speed
@@ -92,6 +112,7 @@ function drawGame() {
       GameProps.snake.draw();
       break;
   }
+  drawScore();
   // Request the next frame
   requestAnimationFrame(drawGame);
 }
@@ -111,9 +132,23 @@ function updateGame() {
 
 function increaseGameSpeed() {
   /* Increase game speed logic here */
-  console.log("Increase game speed!");
+  // speed limit 15
+  if (gameSpeed < 15) {
+      gameSpeed += 0.5;
+  }
+  console.log(`Speed increased!`);
+  // Clear old update loop
+  clearInterval(hndUpdateGame);
+  // Start new faster loop
+  hndUpdateGame = setInterval(updateGame, 1000 / gameSpeed);
 }
 
+function drawScore() {
+  const ctx = cvs.getContext("2d");
+  ctx.font = "32px Arial";
+  ctx.fillStyle = "white";
+  ctx.fillText(`Score: ${GameProps.score}`, 20, 40);
+}
 
 //-----------------------------------------------------------------------------------------
 //----------- Event handlers --------------------------------------------------------------
