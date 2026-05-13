@@ -50,14 +50,13 @@ export const GameProps = {
 //------------------------------------------------------------------------------------------
 
 export function newGame() {
-  clearInterval(hndUpdateGame);
+  clearInterval(hndUpdateGame); // Reset snake's speed
   GameProps.gameBoard = new TGameBoard();
   GameProps.snake = new TSnake(spcvs, new TBoardCell(5, 5)); // Initialize snake with a starting position
   GameProps.bait = new TBait(spcvs); // Initialize bait with a starting position
   GameProps.score = 0;
-  gameSpeed = 4; // Reset game speed
-  hndUpdateGame = 
-    setInterval(updateGame, 1000 / gameSpeed);
+  gameSpeed = 2; // Reset game speed
+  hndUpdateGame = setInterval(updateGame, 1000 / gameSpeed);
 }
 
 export function baitIsEaten() {

@@ -88,7 +88,11 @@ class TSnakeHead extends TSnakePart {
     let collision = this.boardCell.row < 0 || this.boardCell.row >= GameProps.gameBoard.rows || this.boardCell.col < 0 || this.boardCell.col >= GameProps.gameBoard.cols;
     if(!collision) {
       const boardCellInfo = GameProps.gameBoard.getCell(this.boardCell.row, this.boardCell.col);
-      collision = boardCellInfo.infoType === EBoardCellInfoType.Snake;
+      const tailCell = GameProps.snake.getTailCell(); // current tail position
+      // Check if head enters tail cell
+      const isTailCell = this.boardCell.row === tailCell.row && this.boardCell.col === tailCell.col;
+      // Now collision only if it is snake body AND not the current tail cell
+      collision = boardCellInfo.infoType === EBoardCellInfoType.Snake && !isTailCell;
     }
     return collision; // Collision detected
   }
@@ -275,5 +279,9 @@ export class TSnake {
 
   grow() {
   this.#newBodyPart = this.#body[this.#body.length - 1].clone();
+  }
+
+  getTailCell() {
+    return this.#tail.boardCell;
   }
 }
