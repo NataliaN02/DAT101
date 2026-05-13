@@ -7,6 +7,7 @@ import { TSpriteCanvas, TSprite } from "libSprite";
 import { TGameBoard, GameBoardSize, TBoardCell } from "./gameBoard.js";
 import { TSnake, EDirection } from "./snake.js";
 import { TBait } from "./bait.js";
+import { TMenu } from "./menu.js";
 
 //-----------------------------------------------------------------------------------------
 //----------- variables and object --------------------------------------------------------
@@ -15,7 +16,9 @@ const cvs = document.getElementById("cvs");
 const spcvs = new TSpriteCanvas(cvs);
 let gameSpeed = 4; // Game speed multiplier;
 let hndUpdateGame = null;
+let gameMenu = null;
 export const EGameStatus = { Idle: 0, Playing: 1, Pause: 2, GameOver: 3 };
+cvs.addEventListener("click", onMouseClick);
 
 
 
@@ -47,11 +50,14 @@ export const GameProps = {
 //------------------------------------------------------------------------------------------
 
 export function newGame() {
+  clearInterval(hndUpdateGame);
   GameProps.gameBoard = new TGameBoard();
   GameProps.snake = new TSnake(spcvs, new TBoardCell(5, 5)); // Initialize snake with a starting position
   GameProps.bait = new TBait(spcvs); // Initialize bait with a starting position
-  gameSpeed = 4; // Reset game speed
   GameProps.score = 0;
+  gameSpeed = 4; // Reset game speed
+  hndUpdateGame = 
+    setInterval(updateGame, 1000 / gameSpeed);
 }
 
 export function baitIsEaten() {
@@ -89,11 +95,10 @@ function loadGame() {
   cvs.width = GameBoardSize.Cols * SheetData.Head.width;
   cvs.height = GameBoardSize.Rows * SheetData.Head.height;
 
-  GameProps.gameStatus = EGameStatus.Playing; // change game status to Idle
-
+  GameProps.gameStatus = EGameStatus.Idle; // change game status to Idle
+  
   /* Create the game menu here */ 
-
-  newGame(); // Call this function from the menu to start a new game, remove this line when the menu is ready
+  gameMenu = new TMenu(spcvs);
 
   requestAnimationFrame(drawGame);
   console.log("Game canvas is rendering!");
@@ -112,7 +117,14 @@ function drawGame() {
       GameProps.snake.draw();
       break;
   }
-  drawScore();
+  // Score is shown only when the game is being played or paused
+  if (
+    GameProps.gameStatus === EGameStatus.Playing ||
+    GameProps.gameStatus === EGameStatus.Pause
+  ) {
+    drawScore();
+  }
+  gameMenu.draw();
   // Request the next frame
   requestAnimationFrame(drawGame);
 }
@@ -136,7 +148,7 @@ function increaseGameSpeed() {
   if (gameSpeed < 15) {
       gameSpeed += 0.5;
   }
-  console.log(`Speed increased!`);
+  console.log(`Speed: ${gameSpeed}`);
   // Clear old update loop
   clearInterval(hndUpdateGame);
   // Start new faster loop
@@ -160,7 +172,7 @@ function drawScore() {
     numberSprite.index = digit;
     // Draw sprite
     numberSprite.draw();
-    x += 60;
+    x += 60; // space between digits
   }
 }
 
@@ -185,10 +197,37 @@ function onKeyDown(event) {
     case " ":
       console.log("Space key pressed!");
       /* Pause the game logic here */
-      
+      if (GameProps.gameStatus === EGameStatus.Playing) {
+        GameProps.gameStatus = EGameStatus.Pause
+      } else if (GameProps.gameStatus === EGameStatus.Pause) {
+        GameProps.gameStatus = EGameStatus.Playing
+      }
       break;
     default:
       console.log(`Key pressed: "${event.key}"`);
+  }
+}
+
+function onMouseClick(event) {
+  const rect = cvs.getBoundingClientRect();
+  const mouseX = event.clientX - rect.left;
+  const mouseY = event.clientY - rect.top;
+  switch(GameProps.gameStatus) {
+    case EGameStatus.Idle:
+      if (gameMenu.playButton.isClicked(mouseX, mouseY)) {
+        newGame();
+        GameProps.gameStatus = EGameStatus.Playing;
+      }
+      break;
+    case EGameStatus.GameOver:
+      if (gameMenu.retryButton.isClicked(mouseX, mouseY)) {
+        newGame();
+        GameProps.gameStatus = EGameStatus.Playing
+      }
+      if (gameMenu.homeButton.isClicked(mouseX, mouseY)) {
+        GameProps.gameStatus = EGameStatus.Idle;
+      }
+      break;
   }
 }
 //-----------------------------------------------------------------------------------------
